@@ -1,6 +1,8 @@
+'use client'
 import React from 'react'
 import { Flex } from '../ui/flex'
 import { Button } from '../ui/button'
+import { ThemeSwitch } from './ThemeSwitch'
 
 const Header = () => {
   return (
@@ -8,7 +10,8 @@ const Header = () => {
         <Flex>
             SecureNote
         </Flex>
-        <Flex>
+        <Flex className='gap-4'>
+        <ThemeSwitch />
         <Button variant={"outline"}>
             Sign-In
         </Button>
