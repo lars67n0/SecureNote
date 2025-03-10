@@ -1,9 +1,23 @@
-import Image from "next/image";
-
+import Header from "@/components/custom/Header";
+import Hero from "@/components/custom/Hero";
+import MobileNav from "@/components/custom/MobileNav";
+import { Flex } from "@/components/ui/flex";
+import { Grid, GridItem } from "@/components/ui/grid";
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-     i am a page
-    </div>
+    <Flex className="w-full">
+    <Grid className="lg:grid-cols-4 grid-cols-1 gap-4 w-full">
+        <GridItem className="md:col-span-4 shadow-md py-6 px-12 lg:block hidden">
+          <Header />
+        </GridItem>
+        <GridItem className="md:col-span-4   py-6 px-12">
+            <Hero />
+        </GridItem>
+        <GridItem className="md:col-span-4  py-6 px-12 block lg:hidden">
+           <MobileNav />
+        </GridItem>
+    </Grid>
+
+</Flex>
   );
 }

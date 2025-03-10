@@ -4,25 +4,25 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "../../lib/utils";
 
 
-const flexVariants = cva("flex");
+const boxVariants = cva("");
 
 
-export interface FlexProps
+export interface BoxProps
   extends React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof flexVariants> {
+    VariantProps<typeof boxVariants> {
   asChild?: boolean;
 }
 
 
-const Flex = React.forwardRef<HTMLDivElement, FlexProps>(
+const Box = React.forwardRef<HTMLDivElement, BoxProps>(
   ({ className, asChild = false, ...props }, ref) => {
     const Comp = asChild ? Slot : "div";
     return (
-      <Comp className={cn(flexVariants({ className }))} ref={ref} {...props} />
+      <Comp className={cn(boxVariants({ className }))} ref={ref} {...props} />
     );
   },
 );
-Flex.displayName = "Flex";
+Box.displayName = "Box";
 
 
-export { Flex, flexVariants };
+export { Box };
