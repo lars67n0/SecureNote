@@ -3,6 +3,9 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "next-themes";
 import Header from "@/components/custom/Header";
+import { Montserrat } from "next/font/google";
+
+const font = Montserrat({ subsets: ["latin"], weight: ["400"] });
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,7 +30,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${font.className} tracking-wide antialiased`}
       >
         <ThemeProvider
           attribute="class"
@@ -35,11 +38,8 @@ export default function RootLayout({
           enableColorScheme
           themes={["dark", "light"]}
         >
-          <Header />
-     
-              {children}
-         
-      
+          <Header/>
+          {children}
         </ThemeProvider>
       </body>
     </html>

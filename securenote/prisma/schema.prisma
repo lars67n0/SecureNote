@@ -13,9 +13,26 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model User {
+  id       Int    @id @default(autoincrement()) // Unique user ID (integer)
+  name     String
+  email    String @unique
+  password String // Store hashed passwords
+  createdAt DateTime @default(now())
+
+  // Relationship: One user can have many notes
+  notes Note[]
+}
+
 model Note {
-  id        String   @id @default(uuid())
+  id        Int    @id @default(autoincrement()) 
   title     String
+  description String
   content   String
   createdAt DateTime @default(now())
+
+  // Foreign Key to link notes to users
+  userId   Int
+  user     User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
+

@@ -6,7 +6,7 @@ import { Flex } from "@/components/ui/flex";
 import { Grid, GridItem } from "@/components/ui/grid";
 
 export default function NotePage() {
-  const [notes, setNotes] = useState<{ id: string; title: string; content: string }[]>([]);
+  const [notes, setNotes] = useState<{ id: string; title: string; description: string }[]>([]);
 
   // Fetch notes from API
   useEffect(() => {
@@ -15,6 +15,7 @@ export default function NotePage() {
         const response = await fetch("/api/notes");
         const data = await response.json();
         setNotes(data);
+        console.log(data);
       } catch (error) {
         console.error("Error fetching notes:", error);
       }
@@ -27,18 +28,18 @@ export default function NotePage() {
       <Flex className="w-full px-12">
         <Grid className="lg:grid-cols-4 grid-cols-1 gap-4 w-full">
           
-          {/* Notes Section */}
+
           <GridItem className="md:col-span-4 py-6 px-12">
             <div className="flex justify-between items-center mb-4">
               <h1 className="text-2xl font-semibold">My Notes</h1>
-              <NoteEditor /> {/* Opens Full-Page Editor */}
+              <NoteEditor /> 
             </div>
 
-            {/* Displaying Notes */}
-            <Grid className="grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+         
+            <Grid className="grid-cols-1 sm:grid-cols-1 md:grid-cols-4 gap-4">
               {notes.length > 0 ? (
                 notes.map((note) => (
-                  <NoteCard key={note.id} title={note.title} description={note.content} />
+                  <NoteCard key={note.id} title={note.title} description={note.description} />
                 ))
               ) : (
                 <p>No notes found.</p>

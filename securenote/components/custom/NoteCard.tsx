@@ -3,6 +3,7 @@ import { Button } from "../ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../ui/card";
 import { Flex } from "../ui/flex";
 import { VscKebabVertical } from "react-icons/vsc";
+import NoteMenuDropDown from "./NoteMenuDropdown";
 
 interface NoteCardProps {
   title: string;
@@ -11,16 +12,14 @@ interface NoteCardProps {
 
 const NoteCard: React.FC<NoteCardProps> = ({ title, description }) => {
   return (
-    <Card className="hover:scale-103 duration-500 transition-transform">
+    <Card>
       <CardHeader className="flex-row justify-between items-center">
         <CardTitle>{title}</CardTitle>
         <Flex className="items-center gap-2">
           <Button variant={"ghost"}> 
             <Share2 className="text-blue-700 dark:text-blue-500"/>
           </Button>
-          <Button variant={"ghost"}>
-             <VscKebabVertical />
-          </Button>
+          <NoteMenuDropDown notename={title} />
         </Flex>
         
        

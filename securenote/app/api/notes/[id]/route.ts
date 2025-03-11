@@ -4,13 +4,13 @@ import prisma from "@/lib/prisma";
 // UPDATE a note (PUT /api/notes/:id)
 export async function PUT(
   request: Request,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: Promise<{ id: Number }> }
 ) {
   const { id } = await params; // Resolve the params promise
   try {
     const { title, content } = await request.json();
     const updatedNote = await prisma.note.update({
-      where: { id:(id) },
+      where: { id:Number(id) },
       data: { title, content },
     });
     return NextResponse.json(updatedNote);
@@ -25,12 +25,12 @@ export async function PUT(
 // DELETE a note (DELETE /api/notes/:id)
 export async function DELETE(
   request: Request,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: Promise<{ id: Number }> }
 ) {
   const { id } = await params; // Resolve the params promise
   try {
     await prisma.note.delete({
-      where: { id:(id) },
+      where: { id:Number(id) },
     });
     return NextResponse.json({ message: "Note deleted successfully" });
   } catch (error) {

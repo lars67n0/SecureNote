@@ -4,9 +4,9 @@ import prisma from "@/lib/prisma"; // Import Prisma Client
 // CREATE a new note (POST /api/notes)
 export async function POST(req: Request) {
   try {
-    const { title, content } = await req.json();
+    const { title, content, description, user } = await req.json();
     const newNote = await prisma.note.create({
-      data: { title, content },
+      data: { title, content, description, user },
     });
     return NextResponse.json(newNote);
   } catch (error) {
