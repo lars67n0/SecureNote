@@ -1,8 +1,7 @@
-import { DotSquare, Share2, Trash2Icon, XIcon } from "lucide-react";
+import { Share2 } from "lucide-react";
 import { Button } from "../ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui/card";
 import { Flex } from "../ui/flex";
-import { VscKebabVertical } from "react-icons/vsc";
 import NoteMenuDropDown from "./NoteMenuDropdown";
 
 interface NoteCardProps {
@@ -12,7 +11,7 @@ interface NoteCardProps {
 
 const NoteCard: React.FC<NoteCardProps> = ({ title, description }) => {
   return (
-    <Card>
+    <Card className="min-h-40">
       <CardHeader className="flex-row justify-between items-center">
         <CardTitle>{title}</CardTitle>
         <Flex className="items-center gap-2">
