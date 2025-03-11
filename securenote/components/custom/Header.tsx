@@ -7,7 +7,7 @@ import SignInButton from "./SignInButton"; // Import Sign In button
 
 const Header = () => {
   return (
-    <nav className="bg-secondary shadow-md p-4 dark:bg-gray-900">
+    <nav className=" shadow-md p-4 ">
       <Flex className="justify-between items-center max-w-6xl mx-auto">
         {/* Logo / App Name */}
         <h1 className="text-2xl font-bold text-gray-900 dark:text-white">

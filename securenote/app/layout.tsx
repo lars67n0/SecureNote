@@ -36,7 +36,10 @@ export default function RootLayout({
           themes={["dark", "light"]}
         >
           <Header />
-        {children}
+     
+              {children}
+         
+      
         </ThemeProvider>
       </body>
     </html>
