@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "next-themes";
+import Header from "@/components/custom/Header";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,6 +35,7 @@ export default function RootLayout({
           enableColorScheme
           themes={["dark", "light"]}
         >
+          <Header />
         {children}
         </ThemeProvider>
       </body>

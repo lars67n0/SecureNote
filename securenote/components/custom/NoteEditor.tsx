@@ -27,18 +27,18 @@ const NoteEditor = () => {
       <AnimatePresence>
         {isOpen && (
           <>
-            {/* Blur Background */}
-            <Backdrop key="backdrop" onClick={() => setIsOpen(false)} />
+            
 
             {/* Full-Page Note Editor */}
             <motion.div
-              key="note-editor"
-              initial={{ x: "100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "100%" }}
-              transition={{ duration: 0.3, ease: "easeInOut" }}
-              className="fixed inset-0 bg-white dark:bg-gray-900 z-50 flex flex-col p-6 shadow-xl"
+            key="note-editor"
+            initial={{ x: "100%" }}
+            animate={{ x: 0 }}
+            exit={{ x: "100%" }}
+            transition={{ duration: 0.5, ease: "easeInOut" }}
+            className="fixed left-0 right-0 top-[4rem] h-[calc(100vh-4.7rem)] bg-white dark:bg-background z-40 flex flex-col p-6 shadow-xl"
             >
+
               {/* Header with Close Button */}
               <div className="flex justify-between items-center">
                 <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Write Your Note</h2>
@@ -59,7 +59,7 @@ const NoteEditor = () => {
                   placeholder="Start writing..."
                   value={content}
                   onChange={(e) => setContent(e.target.value)}
-                  className="h-64"
+                  className="min-h-[450px]"
                 />
               </div>
 

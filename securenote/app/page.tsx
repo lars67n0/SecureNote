@@ -8,8 +8,6 @@ export default function Home() {
   return (
 
     <>
-      <Header />
-
       <Flex className="w-full">
         <Grid className="lg:grid-cols-4 grid-cols-1 gap-4 w-full">
           
