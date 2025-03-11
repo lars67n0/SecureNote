@@ -1,27 +1,30 @@
-'use client'
-import React from 'react'
-import { Flex } from '../ui/flex'
-import { Button } from '../ui/button'
-import { ThemeSwitch } from './ThemeSwitch'
+import React from "react";
+import Link from "next/link";
+import { Flex } from "@/components/ui/flex";
+import { ThemeSwitch } from "./ThemeSwitch";
+import NavMenu from "./NavMenu"; // Import navigation menu
+import SignInButton from "./SignInButton"; // Import Sign In button
 
 const Header = () => {
   return (
-    <Flex className='justify-center'>
-      <Flex className='items-center justify-between w-[80%] bg-slate-300 dark:bg-slate-800 p-4 rounded-md'>
-        <Flex>
-            SecureNote
-        </Flex>
-        <Flex className='gap-4'>
-        <ThemeSwitch />
-        <Button variant={"outline"}>
-            Sign-In
-        </Button>
+    <nav className="bg-secondary shadow-md p-4 dark:bg-gray-900">
+      <Flex className="justify-between items-center max-w-6xl mx-auto">
+        {/* Logo / App Name */}
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+          <Link href="/">SecureNote</Link>
+        </h1>
+
+        {/* Navigation Links */}
+        <NavMenu />
+
+        {/* Sign In & Theme Switch */}
+        <Flex className="gap-4">
+          <SignInButton />
+          <ThemeSwitch />
         </Flex>
       </Flex>
-        
-        
-    </Flex>
-  )
-}
+    </nav>
+  );
+};
 
-export default Header
+export default Header;

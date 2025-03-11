@@ -1,25 +1,15 @@
-import React from 'react'
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '../ui/card';
-import { Button } from '../ui/button';
-
-const NoteCard = () => {
-  return (
-    <Card className='min-w-[70%]'>
-  <CardHeader>
-    <CardTitle>I am a note card</CardTitle>
-    <CardDescription>Note Description</CardDescription>
-  </CardHeader>
-  <CardContent>
-    <p>Im a form?</p>
-  </CardContent>
-  <CardFooter>
-    <Button>
-      Submit
-    </Button>
-  </CardFooter>
-</Card>
-
-  )
+interface NoteCardProps {
+  title: string;
+  description: string;
 }
 
-export default NoteCard
+const NoteCard: React.FC<NoteCardProps> = ({ title, description }) => {
+  return (
+    <div className="border p-4 rounded-md shadow-md bg-white dark:bg-gray-800">
+      <h2 className="text-lg font-semibold text-gray-900 dark:text-white">{title}</h2>
+      <p className="text-gray-600 dark:text-gray-300">{description}</p>
+    </div>
+  );
+};
+
+export default NoteCard;
