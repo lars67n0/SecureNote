@@ -5,9 +5,9 @@ import { Flex } from "@/components/ui/flex";
 import { Grid, GridItem } from "@/components/ui/grid";
 export default function Home() {
   return (
-    <Flex className="w-full">
+    <Flex className="">
     <Grid className="lg:grid-cols-4 grid-cols-1 gap-4 w-full">
-        <GridItem className="md:col-span-4 shadow-md py-6 px-12 lg:block hidden">
+        <GridItem className="md:col-span-4 py-6 px-12 lg:block hidden items-center justify-center w-full">
           <Header />
         </GridItem>
         <GridItem className="md:col-span-4   py-6 px-12">

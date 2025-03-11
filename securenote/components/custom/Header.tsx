@@ -6,7 +6,8 @@ import { ThemeSwitch } from './ThemeSwitch'
 
 const Header = () => {
   return (
-    <Flex className='items-center justify-between'>
+    <Flex className='justify-center'>
+      <Flex className='items-center justify-between w-[80%] bg-slate-300 dark:bg-slate-800 p-4 rounded-md'>
         <Flex>
             SecureNote
         </Flex>
@@ -16,6 +17,8 @@ const Header = () => {
             Sign-In
         </Button>
         </Flex>
+      </Flex>
+        
         
     </Flex>
   )
