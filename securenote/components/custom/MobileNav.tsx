@@ -4,6 +4,7 @@ import NavLink from './NavLink'
 import { FileText, Home, Settings } from 'lucide-react'
 import SignInButton from './SignInButton'
 import { ThemeSwitch } from './ThemeSwitch'
+import { TbShieldLockFilled } from 'react-icons/tb'
 
 const MobileNav = () => {
   return (
@@ -15,12 +16,21 @@ const MobileNav = () => {
         <NavLink href="/settings" icon={<Settings size={20} />} label="Settings" />
       </Flex>
     </nav>
-    <Flex className='justify-between items-center gap-4 px-12 py-3 mt-20'>
-        <Flex>
+    <Flex className=' items-center justify-between w-full gap-4 px-12 py-3 mt-20'>
+      <Flex className='items-center w-full gap-4 '>
+         <Flex>
+          <TbShieldLockFilled className="h-10 w-10 dark:text-indigo-300"/>
+        </Flex>
+        <Flex className='md:block hidden'>
           SecureNote
         </Flex>
+      </Flex>
+      <Flex className='gap-2'>
         <ThemeSwitch />
         <SignInButton />
+      </Flex>
+     
+        
       </Flex>
       </Flex>
   )

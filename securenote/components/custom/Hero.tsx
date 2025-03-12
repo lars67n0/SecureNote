@@ -3,6 +3,7 @@ import { Flex } from '../ui/flex';
 import { Button } from '../ui/button';
 import { ChevronDown } from 'lucide-react';
 import Link from 'next/link';
+import { TbShieldLockFilled } from 'react-icons/tb';
 
 const Hero = () => {
   return (
@@ -10,6 +11,7 @@ const Hero = () => {
     
     <Flex className="bg-zinc-100 dark:bg-zinc-900 flex-1 items-center flex-col justify-between mt-6 md:mt-10 p-4 min-h-[75vh] rounded-md shadow-md">
       <Flex className='flex-col items-center justify-center w-full h-full mx-auto mt-20'>
+        <TbShieldLockFilled className="md:h-40 md:w-40 h-20 w-20"/>
         <h1 className="text-5xl md:text-7xl font-extrabold text-gray-900 dark:text-zinc-100 mb-4">
         Secure Note
       </h1>

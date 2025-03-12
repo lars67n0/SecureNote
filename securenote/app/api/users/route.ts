@@ -15,3 +15,31 @@ export async function GET() {
     return NextResponse.json({ error: "Failed to fetch users" }, { status: 500 });
   }
 }
+
+export async function POST(request: Request) {
+  try {
+    const { email, password } = await request.json();
+
+    const user = await prisma.user.findUnique({
+      where: { email },
+    });
+
+    if (!user || user.password !== password) {
+      return NextResponse.json(
+        { error: "Invalid credentials" },
+        { status: 401 }
+      );
+    }
+
+    return NextResponse.json({
+      message: "Login successful",
+      user: { email: user.email, name: user.name },
+    });
+  } catch (error) {
+    console.error("Login error:", error);
+    return NextResponse.json(
+      { error: "Failed to login" },
+      { status: 500 }
+    );
+  }
+}
