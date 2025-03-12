@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { X } from "lucide-react";
+import { PlusCircleIcon, X } from "lucide-react";
 import Backdrop from "@/components/ui/Backdrop"; // Keep Backdrop for blur effect
 
 const NoteEditor = () => {
@@ -18,10 +18,10 @@ const NoteEditor = () => {
       {/* Button to Open Full-Page Note Editor */}
       <Button
         variant="outline"
-        className="text-gray-900 dark:text-white border-gray-500 hover:bg-gray-900 dark:hover:bg-white hover:text-white dark:hover:text-gray-900 transition duration-200"
+        className="text-gray-900 items-center dark:text-gray-400 border-gray-400 hover:bg-gray-900 dark:hover:bg-slate-500 hover:text-white dark:hover:text-white transition-transform hover:scale-110 duration-200"
         onClick={() => setIsOpen(true)}
       >
-        + New Note
+        <PlusCircleIcon/>New Note
       </Button>
 
       <AnimatePresence>
@@ -59,7 +59,7 @@ const NoteEditor = () => {
                   placeholder="Start writing..."
                   value={content}
                   onChange={(e) => setContent(e.target.value)}
-                  className="min-h-[450px]"
+                  className="md:min-h-[450px] min-h-[250px]"
                 />
               </div>
 

@@ -4,6 +4,8 @@ import "./globals.css";
 import { ThemeProvider } from "next-themes";
 import Header from "@/components/custom/Header";
 import { Montserrat } from "next/font/google";
+import { Flex } from "@/components/ui/flex";
+import MobileNav from "@/components/custom/MobileNav";
 
 const font = Montserrat({ subsets: ["latin"], weight: ["400"] });
 
@@ -38,8 +40,12 @@ export default function RootLayout({
           enableColorScheme
           themes={["dark", "light"]}
         >
-          <Header/>
-          {children}
+          <Header />
+          <MobileNav />
+          <Flex className="justify-between items-center md:max-w-[80%] mx-auto">
+            {children}
+          </Flex>
+          
         </ThemeProvider>
       </body>
     </html>

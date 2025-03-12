@@ -33,17 +33,17 @@ export default function NotePage() {
       <Grid className="lg:grid-cols-4 grid-cols-1 gap-4 w-full">
         <GridItem className="md:col-span-4 py-6 px-12">
           <div className="flex justify-between items-center mb-4">
-            <h1 className="text-2xl font-semibold">My Notes</h1>
+            <h1 className="md:text-2xl text-sm font-semibold">My Notes</h1>
             <NoteEditor />
           </div>
-          <Grid className="grid-cols-1 sm:grid-cols-1 md:grid-cols-4 gap-4">
+          <Grid className="grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {isLoading ? (
               Array.from({ length: 4 }).map((_, index) => (
                 <SkeletonCard key={index} />
               ))
             ) : notes.length > 0 ? (
               notes.map((note) => (
-                <NoteCard key={note.id} title={note.title} description={note.description} />
+                <NoteCard key={note.id} title={note.title} description={note.description} id={note.id} />
               ))
             ) : (
               <p>No notes found.</p>

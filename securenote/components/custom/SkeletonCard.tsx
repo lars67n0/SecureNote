@@ -4,7 +4,7 @@ import { Skeleton } from '../ui/skeleton'
 
 const SkeletonCard = () => {
   return (
-    <Card>
+    <Card className='dark:bg-zinc-900 bg-zinc-100'>
         <CardHeader>
             <Skeleton className="h-4 w-1/2 mb-4" />
         </CardHeader>
