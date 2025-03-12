@@ -1,13 +1,15 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 const SignInButton = () => {
   return (
     <Button
       variant="outline"
-      className="text-gray-900 dark:text-white border-gray-500 hover:bg-gray-900 dark:hover:bg-white hover:text-white dark:hover:text-gray-900 transition duration-200"
+      className="text-gray-900 dark:text-white border-gray-500 hover:bg-gray-900 dark:hover:bg-gray-400 hover:text-white dark:hover:text-white transition duration-200"
     >
-      Sign In
+      <Link href="/login">Sign In</Link>
+     
     </Button>
   );
 };
