@@ -7,7 +7,6 @@ import { Label } from "@radix-ui/react-label";
 import { Separator } from "../ui/separator";
 import { RiGoogleFill, RiGithubFill, RiFacebookBoxFill } from "react-icons/ri";
 import { Checkbox } from "../ui/checkbox";
-import { redirect } from "next/navigation";
 
 const SigninCard = () => {
   const [email, setEmail] = useState("");

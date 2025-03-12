@@ -1,6 +1,6 @@
 import React from "react";
 import NavLink from "./NavLink";
-import { Home, FileText, Settings } from "lucide-react"; // Icons
+import { Home, FileText, Settings } from "lucide-react"; 
 
 const NavMenu = () => {
   return (

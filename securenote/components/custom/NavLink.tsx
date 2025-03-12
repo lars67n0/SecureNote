@@ -11,7 +11,7 @@ interface NavLinkProps {
 }
 
 const NavLink: React.FC<NavLinkProps> = ({ href, icon, label }) => {
-  const pathname = usePathname(); // Get current route
+  const pathname = usePathname(); 
 
   const isActive = pathname === href;
 

@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useState } from "react";
-import NoteEditor from "@/components/custom/NoteEditor"; // Import Full-Page Editor
-import NoteCard from "@/components/custom/NoteCard"; // Display Notes
+import NoteEditor from "@/components/custom/NoteEditor"; 
+import NoteCard from "@/components/custom/NoteCard"; 
 import { Flex } from "@/components/ui/flex";
 import { Grid, GridItem } from "@/components/ui/grid";
 import SkeletonCard from "@/components/custom/SkeletonCard";
