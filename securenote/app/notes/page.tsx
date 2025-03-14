@@ -10,6 +10,7 @@ export default function NotePage() {
   const [notes, setNotes] = useState<{ id: string; title: string; description: string, }[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  // test
   // Fetch notes from API
   useEffect(() => {
     async function fetchNotes() {
