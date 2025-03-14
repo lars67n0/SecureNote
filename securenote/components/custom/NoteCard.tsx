@@ -10,7 +10,7 @@ interface NoteCardProps {
   description: string;
 }
 
-const NoteCard: React.FC<NoteCardProps> = ({ title, description, id }) => {
+const NoteCard: React.FC<NoteCardProps> = ({ title, description, id}) => {
   return (
     <Card className="min-h-40 dark:bg-zinc-900 bg-zinc-100">
       <CardHeader className="flex-row justify-between items-center">

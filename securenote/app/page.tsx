@@ -1,3 +1,4 @@
+import FeatureSection from "@/components/custom/FeatureSection";
 import Hero from "@/components/custom/Hero";
 import { Flex } from "@/components/ui/flex";
 import { Grid, GridItem } from "@/components/ui/grid";
@@ -10,7 +11,7 @@ export default function Home() {
           <Hero />
         </GridItem>
         <GridItem className="md:col-span-4 px-12 min-h-[85vh]">
-          <Hero />
+          <FeatureSection />
         </GridItem>
       </Grid>
     </Flex>

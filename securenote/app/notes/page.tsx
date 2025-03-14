@@ -7,7 +7,7 @@ import { Grid, GridItem } from "@/components/ui/grid";
 import SkeletonCard from "@/components/custom/SkeletonCard";
 
 export default function NotePage() {
-  const [notes, setNotes] = useState<{ id: string; title: string; description: string }[]>([]);
+  const [notes, setNotes] = useState<{ id: string; title: string; description: string, }[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   // Fetch notes from API
@@ -18,6 +18,7 @@ export default function NotePage() {
         const data = await response.json();
         setTimeout(() => {
           setNotes(data);
+          console.log(data);
           setIsLoading(false);
         }, 500);
       } catch (error) {
