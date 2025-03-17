@@ -28,6 +28,8 @@ interface NoteMenuDropDownProps {
   noteid: string;
 }
 
+
+
 const NoteMenuDropDown: React.FC<NoteMenuDropDownProps> = ({ notename, noteid }) => {
   const [isDeleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [notification, setNotification] = useState<string | null>(null);
@@ -54,7 +56,8 @@ const NoteMenuDropDown: React.FC<NoteMenuDropDownProps> = ({ notename, noteid })
   const handleShare = async () => {
     try {
       // link kopi til clipboard
-      const noteUrl = `https://localhost:3000/note/${noteid}`;
+      const noteUrl = `${window.location.origin}/notes/${noteid}`;
+
       
       // Copy the URL to the clipboard
       await navigator.clipboard.writeText(noteUrl);

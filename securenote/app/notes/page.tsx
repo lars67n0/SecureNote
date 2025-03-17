@@ -7,6 +7,9 @@ import { Grid, GridItem } from "@/components/ui/grid";
 import SkeletonCard from "@/components/custom/SkeletonCard";
 import { supabase } from "@/lib/supabase";
 
+
+
+
 export default function NotePage() {
   const [notes, setNotes] = useState<{ id: string; title: string; description: string }[]>([]);
   const [isLoading, setIsLoading] = useState(true);
