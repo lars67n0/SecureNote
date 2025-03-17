@@ -60,7 +60,7 @@ const NoteMenuDropDown: React.FC<NoteMenuDropDownProps> = ({ notename, noteid })
       await navigator.clipboard.writeText(noteUrl);
       
       // Vis notifikation
-      setNotification("Note URL copied to clipboard!");
+      setNotification("The Public Note URL has been copied!");
       
       // fjern notifikation efter noget tid
       setTimeout(() => setNotification(null), 3000);
@@ -118,7 +118,7 @@ const NoteMenuDropDown: React.FC<NoteMenuDropDownProps> = ({ notename, noteid })
       </Dialog>
 
       {notification && (
-        <div className="fixed bottom-4 right-4 p-4 bg-blue-500 text-white rounded-md">
+        <div className="fixed bottom-4 right-4 p-4 bg-black text-sm text-white rounded-md">
           {notification}
         </div>
       )}

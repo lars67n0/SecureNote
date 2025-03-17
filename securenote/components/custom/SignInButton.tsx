@@ -80,7 +80,6 @@ const SignInButton = () => {
     return (
       <>
         <Flex className="items-center gap-2">
-          {userData.name}
           <FaUserCircle size={20} />
         </Flex>
         <Button
