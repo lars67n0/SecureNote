@@ -5,27 +5,34 @@ import NoteCard from "@/components/custom/NoteCard";
 import { Flex } from "@/components/ui/flex";
 import { Grid, GridItem } from "@/components/ui/grid";
 import SkeletonCard from "@/components/custom/SkeletonCard";
+import { supabase } from "@/lib/supabase";
 
 export default function NotePage() {
-  const [notes, setNotes] = useState<{ id: string; title: string; description: string, }[]>([]);
+  const [notes, setNotes] = useState<{ id: string; title: string; description: string }[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  // test
-  // Fetch notes from API
   useEffect(() => {
     async function fetchNotes() {
-      try {
-        const response = await fetch("/api/notes");
-        const data = await response.json();
-        setTimeout(() => {
-          setNotes(data);
-          console.log(data);
-          setIsLoading(false);
-        }, 500);
-      } catch (error) {
-        console.error("Error fetching notes:", error);
+      // Get the current session to determine the logged in user.
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) {
         setIsLoading(false);
+        return;
       }
+
+      // Query only notes for the logged in user using the user_id from the session.
+      const { data, error } = await supabase
+        .from("notes")
+        .select("*")
+        .eq("user_id", session.user.id);
+
+      if (error) {
+        console.error("Error fetching notes:", error.message);
+      } else {
+        console.log("Fetched notes:", data);
+        setNotes(data);
+      }
+      setIsLoading(false);
     }
     fetchNotes();
   }, []);
@@ -45,10 +52,17 @@ export default function NotePage() {
               ))
             ) : notes.length > 0 ? (
               notes.map((note) => (
-                <NoteCard key={note.id} title={note.title} description={note.description} id={note.id} />
+                <NoteCard 
+                  key={note.id} 
+                  title={note.title} 
+                  description={note.description} 
+                  id={note.id} 
+                />
               ))
             ) : (
-              <p>No notes found.</p>
+              <p>
+                Please Sign-In To See Your Notes
+              </p>
             )}
           </Grid>
         </GridItem>

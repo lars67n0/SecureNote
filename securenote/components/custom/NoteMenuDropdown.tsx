@@ -1,3 +1,4 @@
+'use client'
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
@@ -21,6 +22,7 @@ import { CiEdit } from "react-icons/ci";
 import { Share2 } from "lucide-react";
 import { VscKebabVertical } from "react-icons/vsc";
 import { RiDeleteBin5Fill } from "react-icons/ri";
+import { supabase } from "@/lib/supabase";
 
 interface NoteMenuDropDownProps {
   notename: string;
@@ -32,14 +34,15 @@ const NoteMenuDropDown: React.FC<NoteMenuDropDownProps> = ({ notename, noteid })
 
   const handleDelete = async () => {
     try {
-      const response = await fetch(`/api/notes/${noteid}`, {
-        method: "DELETE",
-      });
+      const { data, error } = await supabase
+        .from("notes")
+        .delete()
+        .eq("id", noteid);
 
-      if (!response.ok) {
-        console.error("Failed to delete note");
+      if (error) {
+        console.error("Failed to delete note:", error.message);
       } else {
-        console.log("Note deleted successfully");
+        console.log("Note deleted successfully", data);
         window.location.reload();
       }
     } catch (error) {
@@ -81,14 +84,16 @@ const NoteMenuDropDown: React.FC<NoteMenuDropDownProps> = ({ notename, noteid })
           <DialogHeader>
             <DialogTitle>Confirm Deletion</DialogTitle>
             <DialogDescription>
-              Are you sure you want to delete the note {notename}?
+              Are you sure you want to delete the note "{notename}"?
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
             <Button variant="outline" onClick={() => setDeleteDialogOpen(false)}>
               Cancel
             </Button>
-            <Button variant={'destructive'} className="bg-red-700 hover:bg-red-800" onClick={handleDelete}>Delete</Button>
+            <Button variant="destructive" className="bg-red-700 hover:bg-red-800" onClick={handleDelete}>
+              Delete
+            </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
