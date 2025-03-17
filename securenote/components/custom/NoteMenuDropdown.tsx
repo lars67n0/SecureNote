@@ -1,4 +1,3 @@
-'use client'
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
@@ -31,6 +30,7 @@ interface NoteMenuDropDownProps {
 
 const NoteMenuDropDown: React.FC<NoteMenuDropDownProps> = ({ notename, noteid }) => {
   const [isDeleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [notification, setNotification] = useState<string | null>(null);
 
   const handleDelete = async () => {
     try {
@@ -51,6 +51,25 @@ const NoteMenuDropDown: React.FC<NoteMenuDropDownProps> = ({ notename, noteid })
     setDeleteDialogOpen(false);
   };
 
+  const handleShare = async () => {
+    try {
+      // link kopi til clipboard
+      const noteUrl = `https://localhost:3000/note/${noteid}`;
+      
+      // Copy the URL to the clipboard
+      await navigator.clipboard.writeText(noteUrl);
+      
+      // Vis notifikation
+      setNotification("Note URL copied to clipboard!");
+      
+      // fjern notifikation efter noget tid
+      setTimeout(() => setNotification(null), 3000);
+    } catch (error) {
+      console.error("Failed to copy URL:", error);
+      setNotification("Failed to copy URL.");
+    }
+  };
+
   return (
     <>
       <DropdownMenu>
@@ -67,7 +86,7 @@ const NoteMenuDropDown: React.FC<NoteMenuDropDownProps> = ({ notename, noteid })
               <CiEdit className="text-orange-700 dark:text-orange-400" />
               Edit Note
             </DropdownMenuItem>
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={handleShare}>
               <Share2 className="text-blue-700 dark:text-blue-500" />
               Share Note
             </DropdownMenuItem>
@@ -97,6 +116,12 @@ const NoteMenuDropDown: React.FC<NoteMenuDropDownProps> = ({ notename, noteid })
           </DialogFooter>
         </DialogContent>
       </Dialog>
+
+      {notification && (
+        <div className="fixed bottom-4 right-4 p-4 bg-blue-500 text-white rounded-md">
+          {notification}
+        </div>
+      )}
     </>
   );
 };
