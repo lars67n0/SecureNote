@@ -96,7 +96,7 @@ const SignupCard = () => {
           </Flex>
           {error && <p className="text-red-500">{error}</p>}
         </CardContent>
-        <CardFooter className="w-full">
+        <CardFooter className="w-full mt-4">
           <Button
             type="submit"
             className="w-full dark:bg-indigo-300 dark:text-black dark:font-bold dark:hover:bg-indigo-400 mt-2"
