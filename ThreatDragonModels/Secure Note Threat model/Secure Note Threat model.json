@@ -21,13 +21,13 @@
     "diagrams": [
       {
         "id": 0,
-        "title": "New CIA diagram",
+        "title": "DFD Diagram",
         "diagramType": "CIA",
         "placeholder": "New CIA diagram description",
         "thumbnail": "./public/content/images/thumbnail.cia.jpg",
         "version": "2.4.1",
         "cells": [],
-        "description": "Test"
+        "description": "For an assignment"
       }
     ],
     "diagramTop": 1,
