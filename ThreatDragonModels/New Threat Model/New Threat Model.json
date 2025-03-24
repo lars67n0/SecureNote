@@ -1,0 +1,37 @@
+{
+  "version": "2.4.1",
+  "summary": {
+    "title": "New Threat Model",
+    "owner": "Lars, Seb, Arian, Omar",
+    "description": "Secure Note website for secure note writing",
+    "id": 0
+  },
+  "detail": {
+    "contributors": [
+      {
+        "name": "Lars Rikardo"
+      },
+      {
+        "name": "Arian"
+      },
+      {
+        "name": "Omar"
+      }
+    ],
+    "diagrams": [
+      {
+        "id": 0,
+        "title": "New CIA diagram",
+        "diagramType": "CIA",
+        "placeholder": "New CIA diagram description",
+        "thumbnail": "./public/content/images/thumbnail.cia.jpg",
+        "version": "2.4.1",
+        "cells": [],
+        "description": "Test"
+      }
+    ],
+    "diagramTop": 1,
+    "reviewer": "András",
+    "threatTop": 0
+  }
+}
