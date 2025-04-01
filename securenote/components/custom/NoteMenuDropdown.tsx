@@ -17,6 +17,8 @@ import {
   DialogDescription,
   DialogFooter,
 } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { CiEdit } from "react-icons/ci";
 import { Share2 } from "lucide-react";
 import { VscKebabVertical } from "react-icons/vsc";
@@ -28,12 +30,52 @@ interface NoteMenuDropDownProps {
   noteid: string;
 }
 
-
-
 const NoteMenuDropDown: React.FC<NoteMenuDropDownProps> = ({ notename, noteid }) => {
   const [isDeleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [isEditDialogOpen, setEditDialogOpen] = useState(false);
   const [notification, setNotification] = useState<string | null>(null);
+  const [title, setTitle] = useState(notename); // Edit input state
+  const [description, setDescription] = useState(""); // Add description state
+  const [content, setContent] = useState(""); // Add content state
 
+  // Fetch the note's current details
+  const fetchNoteDetails = async () => {
+    const { data, error } = await supabase
+      .from("notes")
+      .select("title, description, content")
+      .eq("id", noteid)
+      .single();
+
+    if (error) {
+      console.error("Failed to fetch note details:", error.message);
+    } else {
+      setTitle(data?.title || "");
+      setDescription(data?.description || "");
+      setContent(data?.content || "");
+    }
+  };
+
+  // Handle Edit Save
+  const handleEdit = async () => {
+    try {
+      const { data, error } = await supabase
+        .from("notes")
+        .update({ title, description, content })
+        .eq("id", noteid);
+
+      if (error) {
+        console.error("Failed to update note:", error.message);
+      } else {
+        console.log("Note updated successfully", data);
+        window.location.reload();
+      }
+    } catch (error) {
+      console.error("Error updating note:", error);
+    }
+    setEditDialogOpen(false);
+  };
+
+  // Handle Delete
   const handleDelete = async () => {
     try {
       const { data, error } = await supabase
@@ -53,19 +95,12 @@ const NoteMenuDropDown: React.FC<NoteMenuDropDownProps> = ({ notename, noteid })
     setDeleteDialogOpen(false);
   };
 
+  // Handle Share
   const handleShare = async () => {
     try {
-      // link kopi til clipboard
       const noteUrl = `${window.location.origin}/notes/${noteid}`;
-
-      
-      // Copy the URL to the clipboard
       await navigator.clipboard.writeText(noteUrl);
-      
-      // Vis notifikation
       setNotification("The Public Note URL has been copied!");
-      
-      // fjern notifikation efter noget tid
       setTimeout(() => setNotification(null), 3000);
     } catch (error) {
       console.error("Failed to copy URL:", error);
@@ -81,11 +116,11 @@ const NoteMenuDropDown: React.FC<NoteMenuDropDownProps> = ({ notename, noteid })
             <VscKebabVertical />
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="w-36 items-center justify-center">
+        <DropdownMenuContent className="w-36">
           <DropdownMenuLabel className="truncate">{notename}</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={() => { setEditDialogOpen(true); fetchNoteDetails(); }}>
               <CiEdit className="text-orange-700 dark:text-orange-400" />
               Edit Note
             </DropdownMenuItem>
@@ -101,6 +136,43 @@ const NoteMenuDropDown: React.FC<NoteMenuDropDownProps> = ({ notename, noteid })
         </DropdownMenuContent>
       </DropdownMenu>
 
+      {/* Edit Note Dialog */}
+      <Dialog open={isEditDialogOpen} onOpenChange={setEditDialogOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Edit Note</DialogTitle>
+            <DialogDescription>Update the details of your note below.</DialogDescription>
+          </DialogHeader>
+          <Input
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            placeholder="Title"
+            className="mt-2"
+          />
+          <Input
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            placeholder="Description"
+            className="mt-2"
+          />
+          <Textarea
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+            placeholder="Content"
+            className="mt-2"
+          />
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setEditDialogOpen(false)}>
+              Cancel
+            </Button>
+            <Button variant="default" onClick={handleEdit}>
+              Save
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Delete Note Dialog */}
       <Dialog open={isDeleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
         <DialogContent>
           <DialogHeader>
