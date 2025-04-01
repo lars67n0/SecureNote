@@ -1,3 +1,6 @@
+"use client";
+
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
@@ -9,20 +12,11 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-  DialogFooter,
-} from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+import { VscKebabVertical } from "react-icons/vsc";
 import { CiEdit } from "react-icons/ci";
 import { Share2 } from "lucide-react";
-import { VscKebabVertical } from "react-icons/vsc";
 import { RiDeleteBin5Fill } from "react-icons/ri";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 import { supabase } from "@/lib/supabase";
 
 interface NoteMenuDropDownProps {
@@ -31,71 +25,21 @@ interface NoteMenuDropDownProps {
 }
 
 const NoteMenuDropDown: React.FC<NoteMenuDropDownProps> = ({ notename, noteid }) => {
+  const router = useRouter();
   const [isDeleteDialogOpen, setDeleteDialogOpen] = useState(false);
-  const [isEditDialogOpen, setEditDialogOpen] = useState(false);
   const [notification, setNotification] = useState<string | null>(null);
-  const [title, setTitle] = useState(notename); // Edit input state
-  const [description, setDescription] = useState(""); // Add description state
-  const [content, setContent] = useState(""); // Add content state
 
-  // Fetch the note's current details
-  const fetchNoteDetails = async () => {
-    const { data, error } = await supabase
-      .from("notes")
-      .select("title, description, content")
-      .eq("id", noteid)
-      .single();
-
-    if (error) {
-      console.error("Failed to fetch note details:", error.message);
-    } else {
-      setTitle(data?.title || "");
-      setDescription(data?.description || "");
-      setContent(data?.content || "");
-    }
-  };
-
-  // Handle Edit Save
-  const handleEdit = async () => {
-    try {
-      const { data, error } = await supabase
-        .from("notes")
-        .update({ title, description, content })
-        .eq("id", noteid);
-
-      if (error) {
-        console.error("Failed to update note:", error.message);
-      } else {
-        console.log("Note updated successfully", data);
-        window.location.reload();
-      }
-    } catch (error) {
-      console.error("Error updating note:", error);
-    }
-    setEditDialogOpen(false);
-  };
-
-  // Handle Delete
   const handleDelete = async () => {
     try {
-      const { data, error } = await supabase
-        .from("notes")
-        .delete()
-        .eq("id", noteid);
-
-      if (error) {
-        console.error("Failed to delete note:", error.message);
-      } else {
-        console.log("Note deleted successfully", data);
-        window.location.reload();
-      }
-    } catch (error) {
-      console.error("Error deleting note:", error);
+      const { error } = await supabase.from("notes").delete().eq("id", noteid);
+      if (error) throw error;
+      window.location.reload();
+    } catch (err) {
+      console.error("Delete failed:", err);
     }
     setDeleteDialogOpen(false);
   };
 
-  // Handle Share
   const handleShare = async () => {
     try {
       const noteUrl = `${window.location.origin}/notes/${noteid}`;
@@ -112,7 +56,7 @@ const NoteMenuDropDown: React.FC<NoteMenuDropDownProps> = ({ notename, noteid })
     <>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="ghost" className="hover:bg-gray-200 dark:hover:bg-gray-800">
+          <Button variant="ghost">
             <VscKebabVertical />
           </Button>
         </DropdownMenuTrigger>
@@ -120,59 +64,23 @@ const NoteMenuDropDown: React.FC<NoteMenuDropDownProps> = ({ notename, noteid })
           <DropdownMenuLabel className="truncate">{notename}</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
-            <DropdownMenuItem onClick={() => { setEditDialogOpen(true); fetchNoteDetails(); }}>
-              <CiEdit className="text-orange-700 dark:text-orange-400" />
+            <DropdownMenuItem onClick={() => router.push(`/edit/${noteid}`)}>
+              <CiEdit className="mr-2 text-orange-700 dark:text-orange-400" />
               Edit Note
             </DropdownMenuItem>
             <DropdownMenuItem onClick={handleShare}>
-              <Share2 className="text-blue-700 dark:text-blue-500" />
+              <Share2 className="mr-2 text-blue-700 dark:text-blue-500" />
               Share Note
             </DropdownMenuItem>
             <DropdownMenuItem onClick={() => setDeleteDialogOpen(true)}>
-              <RiDeleteBin5Fill className="text-red-700 dark:text-red-400" />
+              <RiDeleteBin5Fill className="mr-2 text-red-700 dark:text-red-400" />
               Delete Note
             </DropdownMenuItem>
           </DropdownMenuGroup>
         </DropdownMenuContent>
       </DropdownMenu>
 
-      {/* Edit Note Dialog */}
-      <Dialog open={isEditDialogOpen} onOpenChange={setEditDialogOpen}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Edit Note</DialogTitle>
-            <DialogDescription>Update the details of your note below.</DialogDescription>
-          </DialogHeader>
-          <Input
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            placeholder="Title"
-            className="mt-2"
-          />
-          <Input
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            placeholder="Description"
-            className="mt-2"
-          />
-          <Textarea
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            placeholder="Content"
-            className="mt-2"
-          />
-          <DialogFooter>
-            <Button variant="outline" onClick={() => setEditDialogOpen(false)}>
-              Cancel
-            </Button>
-            <Button variant="default" onClick={handleEdit}>
-              Save
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-
-      {/* Delete Note Dialog */}
+      {/* Delete Confirmation Dialog */}
       <Dialog open={isDeleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
         <DialogContent>
           <DialogHeader>
@@ -182,12 +90,8 @@ const NoteMenuDropDown: React.FC<NoteMenuDropDownProps> = ({ notename, noteid })
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
-            <Button variant="outline" onClick={() => setDeleteDialogOpen(false)}>
-              Cancel
-            </Button>
-            <Button variant="destructive" className="bg-red-700 hover:bg-red-800" onClick={handleDelete}>
-              Delete
-            </Button>
+            <Button variant="outline" onClick={() => setDeleteDialogOpen(false)}>Cancel</Button>
+            <Button variant="destructive" onClick={handleDelete}>Delete</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
