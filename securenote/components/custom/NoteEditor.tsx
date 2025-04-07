@@ -69,7 +69,7 @@ const NoteEditor = () => {
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ duration: 0.5, ease: "easeInOut" }}
-            className="fixed left-0 right-0 top-[4rem] h-[calc(100vh-4.7rem)] bg-white dark:bg-background z-40 flex flex-col p-6 shadow-xl"
+            className="fixed left-0 right-0 top-[8rem] h-[calc(100vh-4.7rem)] bg-white dark:bg-background z-40 flex flex-col p-6 shadow-xl"
           >
             <div className="flex justify-between items-center">
               <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Write Your Note</h2>

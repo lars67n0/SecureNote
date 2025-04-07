@@ -5,6 +5,7 @@ import { FileText, Home, Settings } from 'lucide-react'
 import SignInButton from './SignInButton'
 import { ThemeSwitch } from './ThemeSwitch'
 import { TbShieldLockFilled } from 'react-icons/tb'
+import { Si2Fas } from 'react-icons/si'
 
 const MobileNav = () => {
   return (
@@ -19,7 +20,7 @@ const MobileNav = () => {
     <Flex className=' items-center justify-between w-full gap-4 px-12 py-3 mt-20'>
       <Flex className='items-center w-full gap-4 '>
          <Flex>
-          <TbShieldLockFilled className="h-10 w-10 dark:text-indigo-300"/>
+          <Si2Fas className="h-10 w-10 mr-2 dark:text-indigo-400 text-indigo-500"/>
         </Flex>
         <Flex className='md:block hidden'>
           SecureNote

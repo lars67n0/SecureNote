@@ -147,7 +147,7 @@ const SigninCard = () => {
           {error && <p className="text-red-500 text-sm py-2">{error}</p>}
           {message && <p className="text-green-500 text-sm py-2">{message}</p>}
         </CardContent>
-        <CardFooter className="w-full">
+        <CardFooter className="w-full mt-4">
           <Button
             type="submit"
             className="w-full dark:bg-indigo-300 dark:text-black dark:font-bold dark:hover:bg-indigo-400 mt-2"
