@@ -13,6 +13,7 @@ import {
 import { Flex } from "../ui/flex";
 import { FaUserCircle } from "react-icons/fa";
 import { supabase } from "@/lib/supabase";
+import { ArrowBigLeft, ArrowRight } from "lucide-react";
 
 interface UserData {
   id: string;
@@ -85,9 +86,10 @@ const SignInButton = () => {
         <Button
           variant="outline"
           onClick={() => setSignOutDialogOpen(true)}
-          className="text-gray-900 dark:text-white border-gray-500 hover:bg-gray-900 dark:hover:bg-gray-400 hover:text-white dark:hover:text-white transition duration-200"
+          className=" min-w-[120px] border-gray-700 cursor-pointer"
         >
           Sign Out
+          <ArrowRight className="text-rose-500 h-6 w-6" />
         </Button>
         <Dialog open={isSignOutDialogOpen} onOpenChange={setSignOutDialogOpen}>
           <DialogContent>
@@ -103,7 +105,7 @@ const SignInButton = () => {
               </Button>
               <Button
                 variant="destructive"
-                className="bg-red-700 hover:bg-red-800"
+                className="bg-red-700 hover:bg-red-800 cursor-pointer"
                 onClick={confirmSignOut}
               >
                 Sign Out
@@ -117,8 +119,8 @@ const SignInButton = () => {
 
   return (
     <Button
-      variant="outline"
-      className="text-gray-900 dark:text-white border-gray-500 hover:bg-gray-900 dark:hover:bg-gray-400 hover:text-white dark:hover:text-white transition duration-200"
+      variant="default"
+      className="bg-gradient-to-r min-w-[120px] from-indigo-500 to-blue-500 text-white hover:bg-gradient-to-l hover:from-indigo-300 hover:to-blue-400 transition duration-400 px-6"
     >
       <Link href="/login">Sign In</Link>
     </Button>

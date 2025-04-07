@@ -56,7 +56,7 @@ const NoteMenuDropDown: React.FC<NoteMenuDropDownProps> = ({ notename, noteid })
     <>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="ghost">
+          <Button variant="ghost" className="cursor-pointer">
             <VscKebabVertical />
           </Button>
         </DropdownMenuTrigger>
