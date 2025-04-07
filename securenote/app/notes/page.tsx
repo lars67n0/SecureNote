@@ -7,6 +7,7 @@ import { Grid, GridItem } from "@/components/ui/grid";
 import SkeletonCard from "@/components/custom/SkeletonCard";
 import { supabase } from "@/lib/supabase";
 import CreateNoteDialog from "@/components/custom/CreateNoteDialog";
+import React from "react";
 
 
 

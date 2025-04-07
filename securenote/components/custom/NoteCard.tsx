@@ -4,6 +4,8 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Flex } from "../ui/flex";
 import NoteMenuDropDown from "./NoteMenuDropdown";
 import { useState } from "react";
+import React from "react";
+
 import EditButton from "./EditButton";
 
 interface NoteCardProps {

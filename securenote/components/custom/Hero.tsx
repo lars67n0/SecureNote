@@ -10,7 +10,7 @@ import Link from 'next/link';
 const Font = Tomorrow({ subsets: ['latin'], weight: ['400'] });
 
 // Custom hook to check if screen is large
-const useIsLargeScreen = (breakpoint = 1500) => {
+const useIsLargeScreen = (breakpoint = 1750) => {
   const [isLarge, setIsLarge] = useState(false);
   
   useEffect(() => {

@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { PlusCircleIcon, X } from "lucide-react";
 import { supabase } from "@/lib/supabase";
+import React from "react";
 
 const NoteEditor = () => {
   const [isOpen, setIsOpen] = useState(false);

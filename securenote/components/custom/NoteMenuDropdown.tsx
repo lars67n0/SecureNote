@@ -18,6 +18,7 @@ import { Share2 } from "lucide-react";
 import { RiDeleteBin5Fill } from "react-icons/ri";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 import { supabase } from "@/lib/supabase";
+import React from "react";
 
 interface NoteMenuDropDownProps {
   notename: string;
