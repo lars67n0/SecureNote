@@ -14,6 +14,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { supabase } from "@/lib/supabase";
 import { PlusCircleIcon } from "lucide-react";
+import React from "react";
 
 export function CreateNoteDialog() {
   const [open, setOpen] = useState(false);
