@@ -6,6 +6,7 @@ import { Flex } from "@/components/ui/flex";
 import { Grid, GridItem } from "@/components/ui/grid";
 import SkeletonCard from "@/components/custom/SkeletonCard";
 import { supabase } from "@/lib/supabase";
+import React from "react";
 
 
 
