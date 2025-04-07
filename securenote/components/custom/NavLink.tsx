@@ -18,9 +18,9 @@ const NavLink: React.FC<NavLinkProps> = ({ href, icon, label }) => {
   return (
     <Link
       href={href}
-      className={`flex items-center gap-2 px-3 py-1 rounded-md transition duration-200 ${
+      className={`flex items-center gap-2 px-4 py-1 rounded-md transition duration-200 ${
         isActive
-          ? "bg-slate-200 dark:bg-gray-700 text-black dark:text-white"
+          ? "bg-gradient-to-r from-indigo-100 to-purple-100 dark:from-indigo-900 dark:to-purple-900 text-gray-900 dark:text-white"
           : "text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white"
       }`}
     >

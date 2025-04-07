@@ -1,11 +1,12 @@
 import { Share2 } from "lucide-react";
 import { Button } from "../ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui/card";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../ui/card";
 import { Flex } from "../ui/flex";
 import NoteMenuDropDown from "./NoteMenuDropdown";
 import { useState } from "react";
 import React from "react";
 
+import EditButton from "./EditButton";
 
 interface NoteCardProps {
   id: string;
@@ -13,9 +14,11 @@ interface NoteCardProps {
   description: string;
   content?: string;
   readOnly?: boolean; // <-- Tilføj denne
+  isloggedin?: boolean;
 }
 
 const NoteCard: React.FC<NoteCardProps> = ({
+  isloggedin,
   id,
   title,
   description,
@@ -38,15 +41,14 @@ const NoteCard: React.FC<NoteCardProps> = ({
 
   return (
     <>
-      <Card className="min-h-40 dark:bg-zinc-900 bg-zinc-100">
+      <Card className="min-h-40 dark:bg-zinc-900 bg-zinc-100 hover:scale-102 ease-in-out duration-500">
         <CardHeader className="flex-row justify-between items-center">
           <CardTitle>{title}</CardTitle>
-          {/* Kun vis knapper, hvis readOnly == false */}
           {!readOnly && (
             <Flex className="items-center gap-2">
               <Button
                 variant={"ghost"}
-                className="hover:bg-gray-200 dark:hover:bg-gray-800"
+                className="hover:bg-gray-200 dark:hover:bg-gray-800 cursor-pointer"
                 onClick={handleShare}
               >
                 <Share2 className="text-blue-700 dark:text-blue-500" />
@@ -63,6 +65,19 @@ const NoteCard: React.FC<NoteCardProps> = ({
             </p>
           )}
         </CardContent>
+        {isloggedin? 
+        <>
+        <CardFooter className="items-center justify-end">
+           <EditButton noteid={id}/>
+        </CardFooter>
+        </>
+        : 
+        <>
+
+        </>
+        }
+        
+       
       </Card>
       {notification && (
         <div className="fixed bottom-4 right-4 p-4 bg-black text-sm text-white rounded-md">

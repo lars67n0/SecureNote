@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { MoonIcon, SunIcon } from "lucide-react";
 import { Flex } from "../ui/flex";
 import { Switch } from "../ui/switch";
+import { Button } from "../ui/button";
 
 export const ThemeSwitch: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
   className,
@@ -49,14 +50,15 @@ export const ThemeSwitch: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
       className={"gap-2 items-center justify-center" + className}
       {...props}
     >
-      <Switch
-        checked={initialRender ? initialChecked : theme === "dark"}
-        onCheckedChange={(isChecked) => {
-          const newTheme = isChecked ? "dark" : "light";
-          handleThemeChange(newTheme);
-        }}
-      />
-      <p>{themeLabel === "dark" ? <MoonIcon /> : <SunIcon />}</p>
+      <Button
+        variant="outline"
+        size="icon"
+        onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+        className="rounded-full cursor-pointer"
+      >
+        <SunIcon className="h-[20px] w-[20px] rotate-0 scale-100 transition-all dark:rotate-90 dark:scale-0" />
+        <MoonIcon className="absolute h-[20px] w-[20px] rotate-90 scale-0 dark:scale-100 dark:rotate-0 " />
+      </Button>
     </Flex>
   );
 };

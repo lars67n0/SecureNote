@@ -1,3 +1,6 @@
+"use client";
+
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
@@ -9,18 +12,11 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-  DialogFooter,
-} from "@/components/ui/dialog";
+import { VscKebabVertical } from "react-icons/vsc";
 import { CiEdit } from "react-icons/ci";
 import { Share2 } from "lucide-react";
-import { VscKebabVertical } from "react-icons/vsc";
 import { RiDeleteBin5Fill } from "react-icons/ri";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 import { supabase } from "@/lib/supabase";
 
 interface NoteMenuDropDownProps {
@@ -28,44 +24,27 @@ interface NoteMenuDropDownProps {
   noteid: string;
 }
 
-
-
 const NoteMenuDropDown: React.FC<NoteMenuDropDownProps> = ({ notename, noteid }) => {
+  const router = useRouter();
   const [isDeleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [notification, setNotification] = useState<string | null>(null);
 
   const handleDelete = async () => {
     try {
-      const { data, error } = await supabase
-        .from("notes")
-        .delete()
-        .eq("id", noteid);
-
-      if (error) {
-        console.error("Failed to delete note:", error.message);
-      } else {
-        console.log("Note deleted successfully", data);
-        window.location.reload();
-      }
-    } catch (error) {
-      console.error("Error deleting note:", error);
+      const { error } = await supabase.from("notes").delete().eq("id", noteid);
+      if (error) throw error;
+      window.location.reload();
+    } catch (err) {
+      console.error("Delete failed:", err);
     }
     setDeleteDialogOpen(false);
   };
 
   const handleShare = async () => {
     try {
-      // link kopi til clipboard
       const noteUrl = `${window.location.origin}/notes/${noteid}`;
-
-      
-      // Copy the URL to the clipboard
       await navigator.clipboard.writeText(noteUrl);
-      
-      // Vis notifikation
       setNotification("The Public Note URL has been copied!");
-      
-      // fjern notifikation efter noget tid
       setTimeout(() => setNotification(null), 3000);
     } catch (error) {
       console.error("Failed to copy URL:", error);
@@ -77,30 +56,31 @@ const NoteMenuDropDown: React.FC<NoteMenuDropDownProps> = ({ notename, noteid })
     <>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="ghost" className="hover:bg-gray-200 dark:hover:bg-gray-800">
+          <Button variant="ghost" className="cursor-pointer">
             <VscKebabVertical />
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="w-36 items-center justify-center">
+        <DropdownMenuContent className="w-36">
           <DropdownMenuLabel className="truncate">{notename}</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
-            <DropdownMenuItem>
-              <CiEdit className="text-orange-700 dark:text-orange-400" />
+            <DropdownMenuItem onClick={() => router.push(`/edit/${noteid}`)}>
+              <CiEdit className="mr-2 text-orange-700 dark:text-orange-400" />
               Edit Note
             </DropdownMenuItem>
             <DropdownMenuItem onClick={handleShare}>
-              <Share2 className="text-blue-700 dark:text-blue-500" />
+              <Share2 className="mr-2 text-blue-700 dark:text-blue-500" />
               Share Note
             </DropdownMenuItem>
             <DropdownMenuItem onClick={() => setDeleteDialogOpen(true)}>
-              <RiDeleteBin5Fill className="text-red-700 dark:text-red-400" />
+              <RiDeleteBin5Fill className="mr-2 text-red-700 dark:text-red-400" />
               Delete Note
             </DropdownMenuItem>
           </DropdownMenuGroup>
         </DropdownMenuContent>
       </DropdownMenu>
 
+      {/* Delete Confirmation Dialog */}
       <Dialog open={isDeleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
         <DialogContent>
           <DialogHeader>
@@ -110,12 +90,8 @@ const NoteMenuDropDown: React.FC<NoteMenuDropDownProps> = ({ notename, noteid })
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
-            <Button variant="outline" onClick={() => setDeleteDialogOpen(false)}>
-              Cancel
-            </Button>
-            <Button variant="destructive" className="bg-red-700 hover:bg-red-800" onClick={handleDelete}>
-              Delete
-            </Button>
+            <Button variant="outline" onClick={() => setDeleteDialogOpen(false)}>Cancel</Button>
+            <Button variant="destructive" onClick={handleDelete}>Delete</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
